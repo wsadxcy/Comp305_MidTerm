@@ -16,9 +16,10 @@ public class EnemyController : MonoBehaviour {
 	// PUBLIC INSTANCE VARIABLES
 	public Speed speed;
 	public Boundary boundary;
+    public GameController gameController;
 
-	// PRIVATE INSTANCE VARIABLES
-	private float _CurrentSpeed;
+    // PRIVATE INSTANCE VARIABLES
+    private float _CurrentSpeed;
 	private float _CurrentDrift;
 
 	// Use this for initialization
@@ -44,4 +45,13 @@ public class EnemyController : MonoBehaviour {
 		Vector2 resetPosition = new Vector2 (Random.Range(boundary.xMin, boundary.xMax), boundary.yMax);
 		gameObject.GetComponent<Transform> ().position = resetPosition;
 	}
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "EndLevel")
+        {
+            this.gameController.ScoreValue += 10;
+            Debug.Log("Collide");
+        }
+    }
 }

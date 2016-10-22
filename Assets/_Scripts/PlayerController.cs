@@ -5,8 +5,11 @@ public class PlayerController : MonoBehaviour {
 	// PUBLIC INSTANCE VARIABLES +++++++++++++++++++++++++++++++++++++++
 	//public float speed;
 	public Boundary boundary;
+    public GameController gameController;
+    public Camera camera;
 
-	public Camera camera;
+    public float speed;
+
 	
 	// PRIVATE INSTANCE VARIABLES
 	private Vector2 _newPosition = new Vector2(0.0f, 0.0f);
@@ -24,7 +27,7 @@ public class PlayerController : MonoBehaviour {
 	private void _CheckInput() {
 		this._newPosition = gameObject.GetComponent<Transform> ().position; // current position
 
-		/* movement by keyboard
+		// movement by keyboard
 		if (Input.GetAxis ("Horizontal") > 0) {
 			this._newPosition.x += this.speed; // add move value to current position
 		}
@@ -33,7 +36,7 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetAxis ("Horizontal") < 0) {
 			this._newPosition.x -= this.speed; // subtract move value to current position
 		}
-		*/
+		
 
 		// movement by mouse
 		Vector2 mousePosition = Input.mousePosition;
@@ -53,4 +56,15 @@ public class PlayerController : MonoBehaviour {
 			this._newPosition.x = this.boundary.xMax;
 		}
 	}
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            this.gameController.LivesValue -= 1;
+            Debug.Log("Collide");
+        }
+    }
+
+
 }
