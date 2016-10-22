@@ -8,6 +8,8 @@ public class GameController : MonoBehaviour {
 	public int enemyCount;
 
 	public GameObject enemy;
+    [Header("Sound")]
+    public AudioSource GameOver;
 
     [Header("Game Objects")]
     public GameObject plane;
@@ -59,6 +61,7 @@ public class GameController : MonoBehaviour {
             if (this._livesValue <= 0)
             {
                 this._endGame();
+                this.GameOver.Play();
             }
             else
             {

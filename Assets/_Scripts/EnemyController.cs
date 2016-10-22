@@ -53,5 +53,10 @@ public class EnemyController : MonoBehaviour {
             this.gameController.ScoreValue += 10;
             Debug.Log("Collide");
         }
+        else
+        if(collision.gameObject.tag == "Player")
+        {
+            _Reset();
+        }
     }
 }

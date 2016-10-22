@@ -6,13 +6,20 @@ public class PlayerController : MonoBehaviour {
 	//public float speed;
 	public Boundary boundary;
     public GameController gameController;
+    public Transform explosion;
+
     public Camera camera;
 
     public float speed;
 
-	
-	// PRIVATE INSTANCE VARIABLES
-	private Vector2 _newPosition = new Vector2(0.0f, 0.0f);
+    [Header("Sounds")]
+    public AudioSource Explosion;
+
+
+
+
+    // PRIVATE INSTANCE VARIABLES
+    private Vector2 _newPosition = new Vector2(0.0f, 0.0f);
 	
 	// Use this for initialization
 	void Start () {
@@ -22,6 +29,11 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		this._CheckInput ();
+        if(this.gameController.LivesValue <= 0)
+        {
+            GameObject exploder = ((Transform)Instantiate(explosion, this.
+                    transform.position, this.transform.rotation)).gameObject;
+        }
 	}
 
 	private void _CheckInput() {
@@ -63,6 +75,7 @@ public class PlayerController : MonoBehaviour {
         {
             this.gameController.LivesValue -= 1;
             Debug.Log("Collide");
+            this.Explosion.Play();
         }
     }
 
